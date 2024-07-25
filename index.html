@@ -165,12 +165,13 @@
           <a href="img/legit.pdf" download class="btn btn2">Download CV</a>
         </div>
         <div class="contact-right">
-          <form>
+          <form name="submit-to-google-sheet">
             <input type="text" name="Name" placeholder="Your Name" required>
             <input type="email" name="Email" placeholder="Your Email" required>
             <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
             <button type="submit" class="btn btn2">Submit</button>
           </form>
+          <span id="msg"></span>
         </div>
       </div>
     </div>
@@ -179,6 +180,7 @@
     </div>
   </div>
 
+  <!-- -----------tabs----------- -->
   <script>
     let tablinks = document.getElementsByClassName("tab-links");
     let tabcontents = document.getElementsByClassName("tab-contents");
@@ -194,6 +196,26 @@
       event.currentTarget.classList.add("active-link");
       document.getElementById(tabname).classList.add("active-tab");
     }
+  </script>
+
+  <!-- -----------form submission----------- -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwjzhlz1gMJEvX_FB8CBizRnjITGHLSDgiUngLevKpr_o_bqs0rmam_hLRUs_il-nwmDw/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.getElementById("msg")
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          msg.innerHTML = "Messaga Sent"
+          setTimeout(function (){
+            msg.innerHTML = ""
+          }, 1500)
+          form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
   </script>
 
 </body>

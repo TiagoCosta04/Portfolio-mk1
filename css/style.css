@@ -339,6 +339,12 @@ form .btn2{
   color: #E14765;
 }
 
+#msg{
+  color: #29f1c3;
+  margin-top: -40px;
+  display: block;
+}
+
 /* -----------smaller screen----------- */
 /*@media only screen and (max-width: 600px){
   #header{
